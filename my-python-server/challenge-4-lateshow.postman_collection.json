@@ -1,0 +1,116 @@
+{
+  "info": {
+    "name": "Challenge 4 Late Show API",
+    "description": "Postman collection for testing the API endpoints of the Challenge 4 Late Show application.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Guests",
+      "item": [
+        {
+          "name": "Get All Guests",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/guests",
+              "host": ["{{baseUrl}}"],
+              "path": ["guests"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Guest",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\": \"John Doe\", \"email\": \"john@example.com\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/guests",
+              "host": ["{{baseUrl}}"],
+              "path": ["guests"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Episodes",
+      "item": [
+        {
+          "name": "Get All Episodes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/episodes",
+              "host": ["{{baseUrl}}"],
+              "path": ["episodes"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Episode",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\": \"Episode 1\", \"description\": \"Description of Episode 1\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/episodes",
+              "host": ["{{baseUrl}}"],
+              "path": ["episodes"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"username\": \"user\", \"password\": \"pass\"}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
