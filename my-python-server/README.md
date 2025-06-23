@@ -87,3 +87,52 @@ A Postman collection for testing the API endpoints is included in `challenge-4-l
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+# Late Show API Challenge
+
+## Setup Instructions
+
+1. **Clone the repository**
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. **Set environment variables:**
+   - `DATABASE_URI` (e.g., postgresql://postgres:postgres@localhost/late_show_db)
+   - `SECRET_KEY` and `JWT_SECRET_KEY`
+4. **Run migrations:**
+   ```bash
+   flask db init
+   flask db migrate
+   flask db upgrade
+   ```
+5. **Seed the database:**
+   ```bash
+   python server/seed.py
+   ```
+6. **Run the app:**
+   ```bash
+   FLASK_APP=server/app.py flask run
+   ```
+
+## Auth Flow
+- Register: `POST /register`
+- Login: `POST /login` (returns JWT)
+- Use JWT in `Authorization: Bearer <token>` for protected routes
+
+## Routes
+| Route                  | Method | Auth? | Description                       |
+|------------------------|--------|-------|-----------------------------------|
+| /register              | POST   | No    | Register a user                   |
+| /login                 | POST   | No    | Log in, get JWT                   |
+| /episodes              | GET    | No    | List episodes                     |
+| /episodes/<id>         | GET    | No    | Get episode + appearances         |
+| /episodes/<id>         | DELETE | Yes   | Delete episode + appearances      |
+| /guests                | GET    | No    | List guests                       |
+| /appearances           | POST   | Yes   | Create appearance                 |
+
+## Postman
+- Import `challenge-4-lateshow.postman_collection.json` for testing.
+
+## GitHub
+- [Your repository link here]

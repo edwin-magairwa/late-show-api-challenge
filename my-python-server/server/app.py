@@ -5,29 +5,21 @@ from server.controllers.appearance_controller import AppearanceController
 from server.controllers.auth_controller import AuthController
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
+app.config['SECRET_KEY'] = SECRET_KEY
+app.config['JWT_SECRET_KEY'] = JWT_SECRET_KEY
 
-# Initialize controllers
-guest_controller = GuestController()
-episode_controller = EpisodeController()
-appearance_controller = AppearanceController()
-auth_controller = AuthController()
+db.init_app(app)
+jwt = JWTManager(app)
+migrate = Migrate(app, db)
 
-# Set up routes
-@app.route('/guests', methods=['GET', 'POST'])
-def manage_guests():
-    return guest_controller.handle_request()
-
-@app.route('/episodes', methods=['GET', 'POST'])
-def manage_episodes():
-    return episode_controller.handle_request()
-
-@app.route('/appearances', methods=['GET', 'POST'])
-def manage_appearances():
-    return appearance_controller.handle_request()
-
-@app.route('/auth', methods=['POST'])
-def manage_auth():
-    return auth_controller.handle_request()
+# Register blueprints
+app.register_blueprint(auth_bp)
+app.register_blueprint(guest_bp)
+app.register_blueprint(episode_bp)
+app.register_blueprint(appearance_bp)
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)

@@ -1,26 +1,27 @@
 from flask import Blueprint, request, jsonify
-from models.guest import Guest
+from flask_jwt_extended import jwt_required
+from models.guest import Guest, db
 
-guest_controller = Blueprint('guest_controller', __name__)
+guest_bp = Blueprint('guests', __name__)
 
-@guest_controller.route('/guests', methods=['POST'])
+@guest_bp.route('/guests', methods=['POST'])
 def create_guest():
     data = request.get_json()
     new_guest = Guest(name=data['name'], email=data['email'])
     new_guest.save()
     return jsonify(new_guest.to_dict()), 201
 
-@guest_controller.route('/guests', methods=['GET'])
-def get_guests():
+@guest_bp.route('/guests', methods=['GET'])
+def list_guests():
     guests = Guest.query.all()
-    return jsonify([guest.to_dict() for guest in guests]), 200
+    return jsonify([{'id': g.id, 'name': g.name, 'occupation': g.occupation} for g in guests]), 200
 
-@guest_controller.route('/guests/<int:guest_id>', methods=['GET'])
+@guest_bp.route('/guests/<int:guest_id>', methods=['GET'])
 def get_guest(guest_id):
     guest = Guest.query.get_or_404(guest_id)
     return jsonify(guest.to_dict()), 200
 
-@guest_controller.route('/guests/<int:guest_id>', methods=['PUT'])
+@guest_bp.route('/guests/<int:guest_id>', methods=['PUT'])
 def update_guest(guest_id):
     data = request.get_json()
     guest = Guest.query.get_or_404(guest_id)
@@ -29,7 +30,7 @@ def update_guest(guest_id):
     guest.save()
     return jsonify(guest.to_dict()), 200
 
-@guest_controller.route('/guests/<int:guest_id>', methods=['DELETE'])
+@guest_bp.route('/guests/<int:guest_id>', methods=['DELETE'])
 def delete_guest(guest_id):
     guest = Guest.query.get_or_404(guest_id)
     guest.delete()
