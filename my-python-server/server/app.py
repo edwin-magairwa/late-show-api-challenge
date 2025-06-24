@@ -1,8 +1,13 @@
 from flask import Flask
-from server.controllers.guest_controller import GuestController
-from server.controllers.episode_controller import EpisodeController
-from server.controllers.appearance_controller import AppearanceController
-from server.controllers.auth_controller import AuthController
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_jwt_extended import JWTManager
+from server.config import DATABASE_URI, SECRET_KEY, JWT_SECRET_KEY
+from server.models import db
+from server.controllers.guest_controller import guest_bp
+from server.controllers.episode_controller import episode_bp
+from server.controllers.appearance_controller import appearance_bp
+from server.controllers.auth_controller import auth_bp
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI

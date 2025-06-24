@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
-from models.appearance import Appearance, db
+from ..models.appearance import Appearance, db
 
 appearance_bp = Blueprint('appearances', __name__)
 
@@ -35,5 +35,3 @@ class AppearanceController:
 
     def list_appearances(self):
         pass
-
-CREATE DATABASE late_show_db;

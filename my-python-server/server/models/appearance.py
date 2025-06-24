@@ -1,4 +1,4 @@
-from models.user import db
+from .user import db
 from sqlalchemy.orm import validates
 
 class Appearance(db.Model):
